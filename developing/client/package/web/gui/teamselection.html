@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
+    <link rel="stylesheet" href="../utilities/css/teamselection.css">
+    <script src="../utilities/js/jquery.js"></script>
+    <title>Teamauswahl</title>
+</head>
+<body>
+    <div class="selection-1">
+        <div class="m-cont" onclick="switchLeft()"><i class="fa-solid fa-caret-left"></i></div>
+    </div>
+    <div class="selection-2">
+        <div class="top">
+            <label id="notifyText">Du wurdest gebannt!</label>
+            <img id="teamimage" src="../utilities/img/teams/Ballas.png" alt="" />
+            <div class="c-cont" id="f1">Front Yard Ballas</div>
+            <div class="b-cont">
+                <div class="c-cont" id="f2">0 Mitglieder</div>
+                <div class="c-cont" id="f3">Öffentlich</div>
+            </div>
+        </div>
+        <div class="bottom">
+            <button id="f4" onclick="selectteam()">Auswählen</button>
+        </div>
+    </div>
+    <div class="selection-3">
+        <div class="m-cont" onclick="switchRight()"><i class="fa-solid fa-caret-right"></i></div>
+    </div>
+</body>
+<script>
+let teamdata = [];//{"frakname": "Front Yard Ballas", "frakshortname": "Ballas", "frakmember": 20, "fraktype": "Öffentlich"}, {"frakname": "Hoover Crips", "frakshortname": "Ballas", "frakmember": 34, "fraktype": "Öffentlich"}
+let curfrak = 0;
+let canJoinFrakName = null;
+let notifytimer;
+
+function showNotify(text)
+{
+    clearTimeout(notifytimer);
+    $("#notifyText").css("display", "block");
+    $("#notifyText").text(text);
+    notifytimer = setTimeout(() => {
+        $("#notifyText").css("display", "none");
+    }, 3000);
+}
+
+function insertFractions(frakJson)
+{
+    frakJson = JSON.parse(frakJson);
+    for (let i = 0; i < frakJson.length; i++) {
+        teamdata.push({"frakname": frakJson[i].frakname, "frakshortname": frakJson[i].frakshortname, "frakmember": frakJson[i].frakmember, "fraktype": frakJson[i].fraktype});
+    }
+    setTimeout(() => {
+        loadDefault();
+    }, 300);
+}
+
+function loadDefault()
+{
+    $("#f1").text(`${teamdata[0].frakname}`);
+    $("#f2").text(`${teamdata[0].frakmember} Mitglieder`);
+    $("#f3").text(`${teamdata[0].fraktype}`);
+}
+
+function setJoinableFrak(frakname)
+{
+    canJoinFrakName = frakname;
+}
+
+function selectteam()
+{
+    if (teamdata[curfrak].fraktype == "Privat")
+    {
+        if (canJoinFrakName == teamdata[curfrak].frakname)
+        {
+            mp.trigger("gui:teamselection:pickprivateteam", teamdata[curfrak].frakname);
+        }
+        else
+        {
+            return showNotify("Du kannst diese Fraktion nicht betreten, da diese Privat ist!");
+        }
+    }
+    else
+    {
+        mp.trigger("gui:teamselection:pickteam", teamdata[curfrak].frakname);
+    }
+}
+
+function switchRight()
+{
+    if (curfrak == teamdata.length - 1)
+        curfrak = 0;
+    else
+        curfrak++;
+
+    document.getElementById("teamimage").src = `../utilities/img/teams/${teamdata[curfrak].frakshortname}.png`;
+    $("#f1").text(`${teamdata[curfrak].frakname}`);
+    $("#f2").text(`${teamdata[curfrak].frakmember} Mitglieder`);
+    $("#f3").text(`${teamdata[curfrak].fraktype}`);
+    if (teamdata[curfrak].fraktype == "Privat")
+    {
+        if (canJoinFrakName == teamdata[curfrak].frakname) return;
+        if (!$("#f4").hasClass("disabled"))
+        {
+            $("#f4").addClass("disabled");
+        }
+    }
+    else
+    {
+        if ($("#f4").hasClass("disabled"))
+        {
+            $("#f4").removeClass("disabled");
+        }
+    }
+    mp.trigger("gui:teamselection:showfrakbase", teamdata[curfrak].frakshortname);
+}
+
+function switchLeft()
+{
+    if (curfrak == 0)
+        curfrak = teamdata.length - 1;
+    else
+        curfrak--;
+
+    document.getElementById("teamimage").src = `../utilities/img/teams/${teamdata[curfrak].frakshortname}.png`;
+    $("#f1").text(`${teamdata[curfrak].frakname}`);
+    $("#f2").text(`${teamdata[curfrak].frakmember} Mitglieder`);
+    $("#f3").text(`${teamdata[curfrak].fraktype}`);
+    if (teamdata[curfrak].fraktype == "Privat")
+    {
+        if (canJoinFrakName == teamdata[curfrak].frakname) return;
+        if (!$("#f4").hasClass("disabled"))
+        {
+            $("#f4").addClass("disabled");
+        }
+    }
+    else
+    {
+        if ($("#f4").hasClass("disabled"))
+        {
+            $("#f4").removeClass("disabled");
+        }
+    }
+    mp.trigger("gui:teamselection:showfrakbase", teamdata[curfrak].frakshortname);
+}
+</script>
+</html>

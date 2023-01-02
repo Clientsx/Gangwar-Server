@@ -1,0 +1,377 @@
+@font-face {
+    font-family: 'PM';
+    src: url('../fonts/Poppins-Medium.ttf');
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-drag: none;
+    font-family: 'PM';
+    list-style: none;
+}
+
+body {
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 96vh;
+    width: 98%;
+    position: relative;
+}
+
+.container .top-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.container .top-left .notifyContainer {
+    margin-left: 1vh;
+    margin-top: 1vh;
+    background-color: rgb(17, 17, 17);
+    width: 20vh;
+    min-height: 5vh;
+    padding-top: 0.5vh;
+    padding-bottom: 1.5vh;
+    height: auto;
+    transform: skew(20deg);
+    border-radius: 0.3vh;
+    position: relative;
+}
+
+.container .top-left .notifyContainer .title {
+    transform: skew(-20deg);
+    color: white;
+    font-family: 'PM';
+    font-size: 1.5vh;
+    position: absolute;
+    font-weight: bold;
+    left: 0.5vh;
+    top: 0.5vh;
+    word-break: break-all;
+    padding-left: 0.5vh;
+    padding-right: 0.5vh;
+}
+
+.container .top-left .notifyContainer .message
+{
+    transform: skew(-20deg);
+    color: white;
+    font-family: 'PM';
+    font-size: 1.3vh;
+    position: absolute;
+    left: 0.5vh;
+    top: 2.5vh;
+    word-break: normal;
+    padding-left: 0.5vh;
+    padding-right: 0.5vh;
+}
+
+.container .top-middle {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+.container .top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.container .middle-left {
+    position: absolute;
+    top: 45%;
+    transform: translate(0%, -50%);
+    left: 0;
+    display: flex;
+    align-items: center;
+}
+
+.container .middle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.container .middle #crosshair {
+    width: 100px;
+    height: 100px;
+    display: none;
+}
+
+.container .middle #killmessage {
+    position: absolute;
+    left: -12vh;
+    font-family: 'PM';
+    font-size: 1.5vh;
+    color: white;
+    width: 35vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: nowrap;
+    font-weight: bolder;
+}
+
+.container .middle-right {
+    position: absolute;
+    top: 45%;
+    transform: translate(0%, -50%);
+    right: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.container .middle-right .killfeed
+{
+    min-width: 30vh;
+    width: auto;
+    padding-left: 0.75vh;
+    padding-right: 0.75vh;
+    height: 3.5vh;
+    background-color: rgb(17, 17, 17);
+    display: inline-flex;
+    margin-top: 1vh;
+    margin-left: 2vh;
+    position: relative;
+    right: 3vh;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    transform: skew(30deg);
+    border-radius: 0.3vh;
+    transition: 1s;
+}
+
+.container .middle-right .killfeed img{
+    height: 2.5vh;
+    margin-left: 1vh;
+    margin-right: 1vh;
+}
+
+.container .middle-right .killfeed label{
+    transform: skew(-30deg);
+    color: white;
+    font-size: 1.5vh;
+    text-align: center;
+    height: 3.5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.container .bottom-left {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.container .bottom-middle {
+    position: absolute;
+    bottom: 0vh;
+}
+
+.container .bottom-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+}
+
+.container .bottom-right .hud {
+    width: 40vh;
+    height: 5vh;
+    background-color: rgb(17, 17, 17);
+    display: inline-flex;
+    margin-top: 1vh;
+    margin-left: 2vh;
+    position: relative;
+    right: 3vh;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    transform: skew(30deg);
+}
+
+.container .bottom-right .hud label{
+    color: white;
+    transform: skew(-30deg);
+    font-size: 1.5vh;
+    margin-left: 2vh;
+}
+
+.container .bottom-right .hud .progress{
+    margin-left: 3vh;
+	width: 4vh;
+	height: 4vh;
+    transform: skew(-30deg);
+    position: relative;
+    top: -0.05vh;
+}
+.container .bottom-right .hud .progress .track, .progress .fill{
+	fill: rgba(0, 0, 0, 0);
+	stroke-width: 60;
+	transform: translate(290px, 800px)rotate(-120deg);
+}
+.container .bottom-right .hud .progress .track{
+	stroke: rgb(56, 71, 83);
+}
+.container .bottom-right .hud .progress .fill {
+	stroke: rgb(255, 255, 255);
+	stroke-linecap: round;
+	stroke-dasharray: 2160;
+	stroke-dashoffset: 2160;
+	transition: stroke-dashoffset 1s;
+}
+.container .bottom-right .hud .progress.blue .fill {
+	stroke: #2268d3;
+}
+.container .bottom-right .hud .progress.green .fill {
+    stroke: #2268d3;
+}
+.container .bottom-right .hud .progress .value, .progress .text {
+    font-family: 'PM';
+	fill: rgb(255, 255, 255);
+	text-anchor: middle;
+}
+.container .bottom-right .hud .progress .value {
+    font-family: 'PM';
+	font-size: 30vh;
+}
+.container .bottom-right .hud .progress .text {
+	font-size: 120px;
+}
+.container .bottom-right .hud .noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	cursor: default;
+}
+.container .bottom-right .hud .center {
+	-webkit-transform: translate( -50% );
+	-ms-transform: translate( -50% );
+	transform: translate( -50% );
+}
+
+.container .bottom-right .progressbar-container{
+    position: relative;
+    bottom: -1vh;
+    margin-left: -9.4vh;
+    width: 40vh;
+    height: 4vh;
+    background-color: transparent;
+    transform: skew(30deg);
+    border-top-right-radius: 0.3vh;
+    border-top-left-radius: 0.3vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.container .bottom-right .progressbar-container label{
+    transform: skew(-30deg);
+    color: white;
+}
+
+.container .bottom-right .progressbar-container .progressbar-fill
+{
+    position: absolute;
+    left: 0vh;
+    bottom: 0vh;
+    height: 0.5vh;
+    width: 0%;
+    background-color: #2268d3;
+    transition: width 500ms;
+    border-top-right-radius: 0.3vh;
+    border-top-left-radius: 0.3vh;
+}
+
+.container .bottom-right .gangwar
+{
+    position: relative;
+    margin-right: 1.2vh;
+    width: 40.1vh;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    height: auto;
+    background-color: rgb(17, 17, 17);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    border-bottom-right-radius: 0.3vh;
+    border-bottom-left-radius: 0.3vh;
+}
+
+.container .bottom-right .gangwar .team
+{
+    position: relative;
+    top: -1vh;
+    width: 100%;
+    margin-top: 1vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.container .bottom-right .gangwar .team label
+{
+    color: white;
+    font-size: 1.7vh;
+    text-align: center;
+    margin-left: 1vh;
+    margin-right: 1vh;
+}

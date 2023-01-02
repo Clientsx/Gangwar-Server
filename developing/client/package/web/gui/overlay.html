@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../utilities/css/overlay.css">
+    <script src="../utilities/js/jquery.js"></script>
+    <title>Overlay</title>
+</head>
+<body>
+    <div class="container">
+        <div class="top-left"></div>
+        <div class="top-middle"></div>
+        <div class="top-right"></div>
+        <div class="middle-left"></div>
+        <div class="middle">
+            <label id="killmessage">Du hast Client getötet</label>
+            <img id="crosshair" src="../utilities/img/misc/crosshair.png" alt="" />
+        </div>
+        <div class="middle-right">
+
+        </div>
+        <div class="bottom-left"></div>
+        <div class="bottom-middle"></div>
+        <div class="bottom-right">
+            <div class="progressbar-container">
+                <label class="progressbar-value">Schutzweste - 40%</label>
+                <div class="progressbar-fill"></div>
+            </div>
+            <div class="hud">
+                <label class="hud-id">ID: 0</label>
+                <label class="hud-kills">Kills: 0</label>
+                <label class="hud-deaths">Deaths: 0</label>
+                <label class="hud-kd">K/D: 0.00</label>
+                <svg class="progress green noselect" data-progress="100" x="0px" y="0px" viewBox="0 0 776 628">
+                    <path class="track" d="M723 314L543 625.77 183 625.77 3 314 183 2.23 543 2.23 723 314z"></path>
+                    <path class="fill" d="M723 314L543 625.77 183 625.77 3 314 183 2.23 543 2.23 723 314z"></path>
+                    <text id="hud-level" class="value" x="50%" y="70%">0</text>
+                </svg>
+            </div>
+            <div class="gangwar">
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+let killmessageTimer;
+let progressbarTimer;
+let progressbarTimer1;
+let progressbarTimer2;
+let hitmarkerTimer;
+
+var forEach = function (array, callback, scope) {
+	for (var i = 0; i < array.length; i++) {
+		callback.call(scope, i, array[i]);
+	}
+};
+
+function showHitmarker()
+{
+    $("#crosshair").fadeIn(50);
+
+    if (hitmarkerTimer != undefined) {
+        clearTimeout(hitmarkerTimer);
+        hitmarkerTimer = undefined;
+    }
+
+    hitmarkerTimer = setTimeout(() => {
+        $("#crosshair").fadeOut(50);
+    }, 200);
+}
+
+function playHitmarker()
+{
+    var audio = new Audio('../utilities/sound/hitmarker.mp3');
+    audio.play();
+}
+
+function headshot()
+{
+    var headshotSound = new Audio("package://web/utilities/sound/headshot.mp3");
+    headshotSound.play();
+}
+
+function playAudioUrl(url) {
+    var audioMedia = new Audio('../utilities/sound/'+url);
+
+    audioMedia.volume = 0.5;
+    audioMedia.play();
+}
+
+function showKillMessage(username)
+{
+    if (killmessageTimer != undefined)
+    {
+        clearTimeout(killmessageTimer);
+        killmessageTimer = undefined;
+    }
+
+    $('#killmessage').css("display", "flex");
+    $('#killmessage').html(`Du hast ${username} getötet`);
+
+    killmessageTimer = setTimeout(() => {
+        $('#killmessage').css("display", "none");
+    }, 2000);
+}
+
+function showNotification(title, message, color, duration)
+{
+    var $html = $(
+        `
+        <div class="notifyContainer" style="border-top: 0.6vh ${color} solid;">
+            <label class="title">${title}</label>
+            <label class="message">${message}</label>
+        </div>
+        `
+    );
+
+    $(".top-left").prepend($html);
+
+    setTimeout(() => {
+        $html.remove();
+    }, duration);
+}
+
+function showKillFeed(username, weaponname)
+{
+    var $html = $(
+        `
+        <div class="killfeed">
+            <label>Du hast ${username} mit einer <img src="../utilities/img/weapons/${weaponname}.png" /> getötet.</label>
+        </div>
+        `
+    );
+
+    $(".middle-right").append($html);
+
+    setTimeout(() => {
+        $html.remove();
+    }, 3500);
+}
+
+function killProgressbar()
+{
+    if (progressbarTimer != undefined)
+    {
+        clearInterval(progressbarTimer);
+        progressbarTimer = undefined;
+    }
+    if (progressbarTimer1 != undefined)
+    {
+        clearTimeout(progressbarTimer1);
+        progressbarTimer1 = undefined;
+    }
+    if (progressbarTimer2 != undefined)
+    {
+        clearTimeout(progressbarTimer2);
+        progressbarTimer2 = undefined;
+    }
+
+    $(".progressbar-fill").stop(true, false);
+    $(".progressbar-container").css("display", "none");
+    $(".progressbar-value").text(`NONE - 0%`);
+    $(".progressbar-fill").width("0%");
+}
+
+function showProgressbar(text, time)
+{
+    if (progressbarTimer != undefined)
+    {
+        clearInterval(progressbarTimer);
+        progressbarTimer = undefined;
+    }
+    if (progressbarTimer1 != undefined)
+    {
+        clearTimeout(progressbarTimer1);
+        progressbarTimer1 = undefined;
+    }
+    if (progressbarTimer2 != undefined)
+    {
+        clearTimeout(progressbarTimer2);
+        progressbarTimer2 = undefined;
+    }
+
+    $(".progressbar-fill").stop(true, false);
+    $(".progressbar-container").css("display", "flex");
+    $(".progressbar-value").text(`${text} - 0%`);
+    $(".progressbar-fill").width("0%");
+    let ptext = text;
+    $(".progressbar-fill").animate({ "width": "100%" }, time * 1000);
+    
+    progressbarTimer = setInterval(() => {
+        let percent = $(".progressbar-fill").width() / $('.progressbar-fill').parent().width() * 100;
+        $(".progressbar-value").text(ptext + " - " + percent.toFixed() + '%');
+    }, 10);
+    progressbarTimer1 = setTimeout(() => {
+        $(".progressbar-fill").width("0%");
+        $(".progressbar-container").css("display", "none");
+        clearInterval(progressbarTimer);
+    }, time * 1000 + 500);
+}
+
+function getProzentOfValue(prozentwert, grundwert) 
+{     
+    return ((prozentwert / grundwert) * 100).toFixed(0); 
+}
+
+function initHud(id, kills, death, level, xp, maxxp)
+{
+    $('.hud-id').text(`ID: ${id}`);
+    $('.hud-kills').text(`Kills: ${kills}`);
+    $('.hud-deaths').text(`Deaths: ${death}`);
+    $('.hud-kd').text(`K/D: ${(kills / death).toFixed(2)}`);
+    $('#hud-level').text(` ${level}`);
+
+    var max = 2160;
+	forEach(document.querySelectorAll('.progress'), function (index, value) {
+	    percent = getProzentOfValue(xp, maxxp);
+	    value.querySelector('.fill').setAttribute('style', 'stroke-dashoffset: ' + ((100 - percent) / 100) * max);
+	});
+}//initHud(1, 12, 6, 102, 50, 100)
+
+function updateHUD(kills, death, level, xp, maxxp)
+{
+    $('.hud-kills').text(`Kills: ${kills}`);
+    $('.hud-deaths').text(`Deaths: ${death}`);
+    $('.hud-kd').text(`K/D: ${(kills / death).toFixed(2)}`);
+    $('#hud-level').text(` ${level}`);
+
+    var max = 2160;
+	forEach(document.querySelectorAll('.progress'), function (index, value) {
+	    percent = getProzentOfValue(xp, maxxp);
+	    value.querySelector('.fill').setAttribute('style', 'stroke-dashoffset: ' + ((100 - percent) / 100) * max);
+	});
+}
+
+function showGangwar(teamdata)
+{
+    $('.gangwar').css("display", "flex");
+
+    teamdata = JSON.parse(teamdata);
+    for (let i = 0; i < teamdata.length; i++) {
+        var $html = $(
+        `
+        <div class="team">
+            <label>${teamdata[i].teamname}</label>
+            <label>${teamdata[i].teampoints}</label>
+        </div>
+        `
+        );
+
+        $(".gangwar").append($html);
+    }
+}
+
+function hideGangwar()
+{
+    $('.gangwar').html(null);
+    $('.gangwar').css("display", "none");
+}
+
+</script>
+</html>

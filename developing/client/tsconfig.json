@@ -1,0 +1,23 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "strict": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "strictFunctionTypes": false,
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowJs": true,
+    "sourceMap": false,
+    "noImplicitAny": true,
+    "outDir": "../../server-files/client_packages"
+  },
+
+  "include": [
+    "./package/**/*",
+    "./libraries/*"
+  ]
+}

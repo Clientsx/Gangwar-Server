@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
+    <link rel="stylesheet" href="../utilities/css/charcreator.css">
+    <link rel="stylesheet" href="../utilities/css/scrollbar.css">
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet"> 
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>  
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>  
+    <title>Charcreator</title>
+</head>
+<body>
+    <div class="container">
+        <div class="head">
+            <h1>Charcreator</h1>
+        </div>
+        <div class="middle">
+            <div class="charcontainer">
+
+                <div class="header" onclick="toggleGene()">
+                    <label>Eltern</label>
+                    <i class="fa-regular fa-chevron-right"></i>
+                </div>
+                <div class="center disabled" id="gene-id">
+                    <div class="slide-cont">
+                        <label>Vater :</label>
+                        <div id="vater-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Mutter :</label>
+                        <div id="mutter-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Ähnlichkeit :</label>
+                        <div id="ähnlichkeit-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Hautfarbe :</label>
+                        <div id="hautfarbe-slider" class="slider"></div>
+                    </div>
+                </div>
+
+                <div class="header" onclick="toggleNase()">
+                    <label>Merkmale</label>
+                    <i class="fa-regular fa-chevron-right"></i>
+                </div>
+                <div class="center disabled" id="nase-id">
+
+                    <div class="slide-cont">
+                        <label>Nose Width :</label>
+                        <div id="0-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Nose Bottom Height :</label>
+                        <div id="1-slider" class="slider"></div>
+                    </div>
+                    
+                    <div class="slide-cont">
+                        <label>Nose Tip Length :</label>
+                        <div id="2-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Nose Bridge Depth :</label>
+                        <div id="3-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Nose Tip Height :</label>
+                        <div id="4-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Nose Broken :</label>
+                        <div id="5-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Brow Height :</label>
+                        <div id="6-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Brow Depth :</label>
+                        <div id="7-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Cheekbone Height :</label>
+                        <div id="8-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Cheekbone Width :</label>
+                        <div id="9-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Cheek Depth :</label>
+                        <div id="10-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Eye Size :</label>
+                        <div id="11-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Lip Thickness :</label>
+                        <div id="12-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Jaw Width :</label>
+                        <div id="13-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Jaw Shape :</label>
+                        <div id="14-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Chin Height :</label>
+                        <div id="15-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Chin Depth :</label>
+                        <div id="16-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Chin Width :</label>
+                        <div id="17-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Chin Indent :</label>
+                        <div id="18-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Neck Width :</label>
+                        <div id="19-slider" class="slider"></div>
+                    </div>
+
+                </div>
+
+                <!--<div class="header" onclick="toggleAugen()">
+                    <label>Augen</label>
+                    <i class="fa-regular fa-chevron-right"></i>
+                </div>
+                <div class="center disabled" id="augen-id"></div>-->
+
+                <div class="header" onclick="toggleGesichtzuege()">
+                    <label>Aussehen</label>
+                    <i class="fa-regular fa-chevron-right"></i>
+                </div>
+                <div class="center disabled" id="gesichtzüge-id">
+
+                    <div class="slide-cont" style="height: 15vh;">
+                        <label>Blemishes :</label>
+                        <div id="a0-slider" class="slider"></div>
+                        <label>Opacity :</label>
+                        <div id="a0-opacity-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont" style="height: 15vh;">
+                        <label>Facial Hair :</label>
+                        <div id="a1-slider" class="slider"></div>
+                        <label>Opacity :</label>
+                        <div id="a1-opacity-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont" style="height: 15vh;">
+                        <label>Eyebrows :</label>
+                        <div id="a2-slider" class="slider"></div>
+                        <label>Opacity :</label>
+                        <div id="a2-opacity-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont" style="height: 15vh;">
+                        <label>Ageing :</label>
+                        <div id="a3-slider" class="slider"></div>
+                        <label>Opacity :</label>
+                        <div id="a3-opacity-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont" style="height: 15vh;">
+                        <label>Makeup :</label>
+                        <div id="a4-slider" class="slider"></div>
+                        <label>Opacity :</label>
+                        <div id="a4-opacity-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont" style="height: 15vh;">
+                        <label>Blush :</label>
+                        <div id="a5-slider" class="slider"></div>
+                        <label>Opacity :</label>
+                        <div id="a5-opacity-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont" style="height: 15vh;">
+                        <label>Complexion :</label>
+                        <div id="a6-slider" class="slider"></div>
+                        <label>Opacity :</label>
+                        <div id="a6-opacity-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont" style="height: 15vh;">
+                        <label>Sun Damage :</label>
+                        <div id="a7-slider" class="slider"></div>
+                        <label>Opacity :</label>
+                        <div id="a7-opacity-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont" style="height: 15vh;">
+                        <label>Lipstick :</label>
+                        <div id="a8-slider" class="slider"></div>
+                        <label>Opacity :</label>
+                        <div id="a8-opacity-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont" style="height: 15vh;">
+                        <label>Moles & Freckles :</label>
+                        <div id="a9-slider" class="slider"></div>
+                        <label>Opacity :</label>
+                        <div id="a9-opacity-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont" style="height: 15vh;">
+                        <label>Chest Hair :</label>
+                        <div id="a10-slider" class="slider"></div>
+                        <label>Opacity :</label>
+                        <div id="a10-opacity-slider" class="slider"></div>
+                    </div>
+
+                </div>
+
+                <div class="header" onclick="toggleKosmetik()">
+                    <label>Haare & Farben</label>
+                    <i class="fa-regular fa-chevron-right"></i>
+                </div>
+                <div class="center disabled" id="kosmetik-id">
+
+                    <div class="slide-cont">
+                        <label>Hair :</label>
+                        <div id="hair-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Hair Color :</label>
+                        <div id="haircolor-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Hair Highlight Color :</label>
+                        <div id="hairhighlightcolor-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Eyebrow Color :</label>
+                        <div id="eyebrowcolor-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Facial Hair Color :</label>
+                        <div id="facialharicolor-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Eye Color :</label>
+                        <div id="eyecolor-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Blush Color :</label>
+                        <div id="blushcolor-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Lipstick Color :</label>
+                        <div id="lipstickcolor-slider" class="slider"></div>
+                    </div>
+
+                    <div class="slide-cont">
+                        <label>Chest Hair Color :</label>
+                        <div id="chesthaircolor-slider" class="slider"></div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="bottom">
+            <button onclick="createChar()">Erstellen</button>
+        </div>
+    </div>
+</body>
+<script>
+const fathers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 42, 43, 44];
+const mothers = [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 45];
+const fatherNames = ["Benjamin", "Daniel", "Joshua", "Noah", "Andrew", "Juan", "Alex", "Isaac", "Evan", "Ethan", "Vincent", "Angel", "Diego", "Adrian", "Gabriel", "Michael", "Santiago", "Kevin", "Louis", "Samuel", "Anthony", "Claude", "Niko", "John"];
+const motherNames = ["Hannah", "Aubrey", "Jasmine", "Gisele", "Amelia", "Isabella", "Zoe", "Ava", "Camila", "Violet", "Sophia", "Evelyn", "Nicole", "Ashley", "Gracie", "Brianna", "Natalie", "Olivia", "Elizabeth", "Charlotte", "Emma", "Misty"];
+const featureNames = ["Nose Width", "Nose Bottom Height", "Nose Tip Length", "Nose Bridge Depth", "Nose Tip Height", "Nose Broken", "Brow Height", "Brow Depth", "Cheekbone Height", "Cheekbone Width", "Cheek Depth", "Eye Size", "Lip Thickness", "Jaw Width", "Jaw Shape", "Chin Height", "Chin Depth", "Chin Width", "Chin Indent", "Neck Width"];
+const appearanceNames = ["Blemishes", "Facial Hair", "Eyebrows", "Ageing", "Makeup", "Blush", "Complexion", "Sun Damage", "Lipstick", "Moles & Freckles", "Chest Hair"];
+
+const appearanceItemNames = [
+    // blemishes
+    ["None", "Measles", "Pimples", "Spots", "Break Out", "Blackheads", "Build Up", "Pustules", "Zits", "Full Acne", "Acne", "Cheek Rash", "Face Rash", "Picker", "Puberty", "Eyesore", "Chin Rash", "Two Face", "T Zone", "Greasy", "Marked", "Acne Scarring", "Full Acne Scarring", "Cold Sores", "Impetigo"],
+    // facial hair
+    ["None", "Light Stubble", "Balbo", "Circle Beard", "Goatee", "Chin", "Chin Fuzz", "Pencil Chin Strap", "Scruffy", "Musketeer", "Mustache", "Trimmed Beard", "Stubble", "Thin Circle Beard", "Horseshoe", "Pencil and 'Chops", "Chin Strap Beard", "Balbo and Sideburns", "Mutton Chops", "Scruffy Beard", "Curly", "Curly & Deep Stranger", "Handlebar", "Faustic", "Otto & Patch", "Otto & Full Stranger", "Light Franz", "The Hampstead", "The Ambrose", "Lincoln Curtain"],
+    // eyebrows
+    ["None", "Balanced", "Fashion", "Cleopatra", "Quizzical", "Femme", "Seductive", "Pinched", "Chola", "Triomphe", "Carefree", "Curvaceous", "Rodent", "Double Tram", "Thin", "Penciled", "Mother Plucker", "Straight and Narrow", "Natural", "Fuzzy", "Unkempt", "Caterpillar", "Regular", "Mediterranean", "Groomed", "Bushels", "Feathered", "Prickly", "Monobrow", "Winged", "Triple Tram", "Arched Tram", "Cutouts", "Fade Away", "Solo Tram"],
+    // ageing
+    ["None", "Crow's Feet", "First Signs", "Middle Aged", "Worry Lines", "Depression", "Distinguished", "Aged", "Weathered", "Wrinkled", "Sagging", "Tough Life", "Vintage", "Retired", "Junkie", "Geriatric"],
+    // makeup
+    ["None", "Smoky Black", "Bronze", "Soft Gray", "Retro Glam", "Natural Look", "Cat Eyes", "Chola", "Vamp", "Vinewood Glamour", "Bubblegum", "Aqua Dream", "Pin Up", "Purple Passion", "Smoky Cat Eye", "Smoldering Ruby", "Pop Princess"],
+    // blush
+    ["None", "Full", "Angled", "Round", "Horizontal", "High", "Sweetheart", "Eighties"],
+    // complexion
+    ["None", "Rosy Cheeks", "Stubble Rash", "Hot Flush", "Sunburn", "Bruised", "Alchoholic", "Patchy", "Totem", "Blood Vessels", "Damaged", "Pale", "Ghostly"],
+    // sun damage
+    ["None", "Uneven", "Sandpaper", "Patchy", "Rough", "Leathery", "Textured", "Coarse", "Rugged", "Creased", "Cracked", "Gritty"],
+    // lipstick
+    ["None", "Color Matte", "Color Gloss", "Lined Matte", "Lined Gloss", "Heavy Lined Matte", "Heavy Lined Gloss", "Lined Nude Matte", "Liner Nude Gloss", "Smudged", "Geisha"],
+    // freckles
+    ["None", "Cherub", "All Over", "Irregular", "Dot Dash", "Over the Bridge", "Baby Doll", "Pixie", "Sun Kissed", "Beauty Marks", "Line Up", "Modelesque", "Occasional", "Speckled", "Rain Drops", "Double Dip", "One Sided", "Pairs", "Growth"],
+    // chest hair
+    ["None", "Natural", "The Strip", "The Tree", "Hairy", "Grisly", "Ape", "Groomed Ape", "Bikini", "Lightning Bolt", "Reverse Lightning", "Love Heart", "Chestache", "Happy Face", "Skull", "Snail Trail", "Slug and Nips", "Hairy Arms"]
+];
+
+const hairList = [
+        {ID: 0, Name: "Close Shave", Collection: "mpbeach_overlays", Overlay: "FM_Hair_Fuzz"},
+        {ID: 1, Name: "Buzzcut", Collection: "multiplayer_overlays", Overlay: "NG_M_Hair_001"},
+        {ID: 2, Name: "Faux Hawk", Collection: "multiplayer_overlays", Overlay: "NG_M_Hair_002"},
+        {ID: 3, Name: "Hipster", Collection: "multiplayer_overlays", Overlay: "NG_M_Hair_003"},
+        {ID: 4, Name: "Side Parting", Collection: "multiplayer_overlays", Overlay: "NG_M_Hair_004"},
+        {ID: 5, Name: "Shorter Cut", Collection: "multiplayer_overlays", Overlay: "NG_M_Hair_005"},
+        {ID: 6, Name: "Biker", Collection: "multiplayer_overlays", Overlay: "NG_M_Hair_006"},
+        {ID: 7, Name: "Ponytail", Collection: "multiplayer_overlays", Overlay: "NG_M_Hair_007"},
+        {ID: 8, Name: "Cornrows", Collection: "multiplayer_overlays", Overlay: "NG_M_Hair_008"},
+        {ID: 9, Name: "Slicked", Collection: "multiplayer_overlays", Overlay: "NG_M_Hair_009"},
+        {ID: 10, Name: "Short Brushed", Collection: "multiplayer_overlays", Overlay: "NG_M_Hair_013"},
+        {ID: 11, Name: "Spikey", Collection: "multiplayer_overlays", Overlay: "NG_M_Hair_002"},
+        {ID: 12, Name: "Caesar", Collection: "multiplayer_overlays", Overlay: "NG_M_Hair_011"},
+        {ID: 13, Name: "Chopped", Collection: "multiplayer_overlays", Overlay: "NG_M_Hair_012"},
+        {ID: 14, Name: "Dreads", Collection: "multiplayer_overlays", Overlay: "NG_M_Hair_014"},
+        {ID: 15, Name: "Long Hair", Collection: "multiplayer_overlays", Overlay: "NG_M_Hair_015"},
+        {ID: 16, Name: "Shaggy Curls", Collection: "multiplayer_overlays", Overlay: "NGBea_M_Hair_000"},
+        {ID: 17, Name: "Surfer Dude", Collection: "multiplayer_overlays", Overlay: "NGBea_M_Hair_001"},
+        {ID: 18, Name: "Short Side Part", Collection: "multiplayer_overlays", Overlay: "NGBus_M_Hair_000"},
+        {ID: 19, Name: "High Slicked Sides", Collection: "multiplayer_overlays", Overlay: "NGBus_M_Hair_001"},
+        {ID: 20, Name: "Long Slicked", Collection: "multiplayer_overlays", Overlay: "NGHip_M_Hair_000"},
+        {ID: 21, Name: "Hipster Youth", Collection: "multiplayer_overlays", Overlay: "NGHip_M_Hair_001"},
+        {ID: 22, Name: "Mullet", Collection: "multiplayer_overlays", Overlay: "NGInd_M_Hair_000"},
+        {ID: 24, Name: "Classic Cornrows", Collection: "mplowrider_overlays", Overlay: "LR_M_Hair_000"},
+        {ID: 25, Name: "Palm Cornrows", Collection: "mplowrider_overlays", Overlay: "LR_M_Hair_001"},
+        {ID: 26, Name: "Lightning Cornrows", Collection: "mplowrider_overlays", Overlay: "LR_M_Hair_002"},
+        {ID: 27, Name: "Whipped Cornrows", Collection: "mplowrider_overlays", Overlay: "LR_M_Hair_003"},
+        {ID: 28, Name: "Zig Zag Cornrows", Collection: "mplowrider2_overlays", Overlay: "LR_M_Hair_004"},
+        {ID: 29, Name: "Snail Cornrows", Collection: "mplowrider2_overlays", Overlay: "LR_M_Hair_005"},
+        {ID: 30, Name: "Hightop", Collection: "mplowrider2_overlays", Overlay: "LR_M_Hair_006"},
+        {ID: 31, Name: "Loose Swept Back", Collection: "mpbiker_overlays", Overlay: "MP_Biker_Hair_000_M"},
+        {ID: 32, Name: "Undercut Swept Back", Collection: "mpbiker_overlays", Overlay: "MP_Biker_Hair_001_M"},
+        {ID: 33, Name: "Undercut Swept Side", Collection: "mpbiker_overlays", Overlay: "MP_Biker_Hair_002_M"},
+        {ID: 34, Name: "Spiked Mohawk", Collection: "mpbiker_overlays", Overlay: "MP_Biker_Hair_003_M"},
+        {ID: 35, Name: "Mod", Collection: "mpbiker_overlays", Overlay: "MP_Biker_Hair_004_M"},
+        {ID: 36, Name: "Layered Mod", Collection: "mpbiker_overlays", Overlay: "MP_Biker_Hair_005_M"},
+        {ID: 72, Name: "Flattop", Collection: "mpgunrunning_overlays", Overlay: "MP_Gunrunning_Hair_M_000_M"},
+        {ID: 73, Name: "Military Buzzcut", Collection: "mpgunrunning_overlays", Overlay: "MP_Gunrunning_Hair_M_001_M"}
+];
+
+function createChar()
+{
+    const parents = [
+        {
+            "vater": fathers[$("#vater-slider").slider("value")],
+            "mutter": mothers[$("#mutter-slider").slider("value")],
+            "ähnlichkeit": $("#ähnlichkeit-slider").slider("value"),
+            "hautfarbe": $("#hautfarbe-slider").slider("value")
+        }
+    ];
+
+    const merkmale = [];
+    const aussehen = [];
+
+    for (let i = 0; i < 20; i++) {
+        merkmale.push($(`#${i}-slider`).slider("value"));
+    }
+
+    for (let i = 0; i < 11; i++) {
+        aussehen.push({"Type": $(`#a${i}-slider`).slider("value"), "Opacity": $(`#a${i}-opacity-slider`).slider("value")});
+    }
+
+    const hairandcolor = [
+        {
+            "haare": hairList[$("#hair-slider").slider("value")].ID,
+            "haarfarbe": $("#haircolor-slider").slider("value"),
+            "haarhighlightfarbe": $("#hairhighlightcolor-slider").slider("value"),
+            "augenbrauenfarbe": $("#eyebrowcolor-slider").slider("value"),
+            "gesichtbehaarungfarbe": $("#facialharicolor-slider").slider("value"),
+            "augenfarbe": $("#eyecolor-slider").slider("value"),
+            "errötenfarbe": $("#blushcolor-slider").slider("value"),
+            "lippenstiftfarbe": $("#lipstickcolor-slider").slider("value"),
+            "brusthaarfarbe": $("#chesthaircolor-slider").slider("value"),
+        }
+    ];
+
+    mp.trigger("gui:charcreator:createChar", JSON.stringify(parents), JSON.stringify(merkmale), JSON.stringify(aussehen), JSON.stringify(hairandcolor));
+}
+
+function updateCharacter()
+{
+    const parents = [
+        {
+            "vater": fathers[$("#vater-slider").slider("value")],
+            "mutter": mothers[$("#mutter-slider").slider("value")],
+            "ähnlichkeit": $("#ähnlichkeit-slider").slider("value"),
+            "hautfarbe": $("#hautfarbe-slider").slider("value")
+        }
+    ];
+
+    const merkmale = [];
+    const aussehen = [];
+
+    for (let i = 0; i < 20; i++) {
+        merkmale.push($(`#${i}-slider`).slider("value"));
+    }
+
+    for (let i = 0; i < 11; i++) {
+        aussehen.push({"Type": $(`#a${i}-slider`).slider("value"), "Opacity": $(`#a${i}-opacity-slider`).slider("value")});
+    }
+
+    const hairandcolor = [
+        {
+            "haare": hairList[$("#hair-slider").slider("value")].ID,
+            "haarfarbe": $("#haircolor-slider").slider("value"),
+            "haarhighlightfarbe": $("#hairhighlightcolor-slider").slider("value"),
+            "augenbrauenfarbe": $("#eyebrowcolor-slider").slider("value"),
+            "gesichtbehaarungfarbe": $("#facialharicolor-slider").slider("value"),
+            "augenfarbe": $("#eyecolor-slider").slider("value"),
+            "errötenfarbe": $("#blushcolor-slider").slider("value"),
+            "lippenstiftfarbe": $("#lipstickcolor-slider").slider("value"),
+            "brusthaarfarbe": $("#chesthaircolor-slider").slider("value"),
+        }
+    ];
+
+        mp.trigger("gui:charcreator:updateChar", JSON.stringify(parents), JSON.stringify(merkmale), JSON.stringify(aussehen), JSON.stringify(hairandcolor));
+}
+
+const eyeColors = ["Green", "Emerald", "Light Blue", "Ocean Blue", "Light Brown", "Dark Brown", "Hazel", "Dark Gray", "Light Gray", "Pink", "Yellow", "Purple", "Blackout", "Shades of Gray", "Tequila Sunrise", "Atomic", "Warp", "ECola", "Space Ranger", "Ying Yang", "Bullseye", "Lizard", "Dragon", "Extra Terrestrial", "Goat", "Smiley", "Possessed", "Demon", "Infected", "Alien", "Undead", "Zombie"];
+
+$( function() {
+    $("#vater-slider").slider({
+        min: 0,
+        max: 22,
+        value: 0,
+        animate:"slow",
+        slide: function(event, ui) {
+            updateCharacter();
+        }
+    });
+    $("#mutter-slider").slider({
+        min: 0,
+        max: 21,
+        value: 0,
+        animate:"slow",
+        slide: function(event, ui) {
+            updateCharacter();
+        }
+    });
+    $("#ähnlichkeit-slider").slider({
+        min: 0,
+        step: 0.01,
+        max: 1,
+        value: 0.5,
+        animate:"slow",
+        slide: function(event, ui) {
+            updateCharacter();
+        }
+    });
+    $("#hautfarbe-slider").slider({
+        min: 0,
+        max: 30,
+        value: 0,
+        animate:"slow",
+        slide: function(event, ui) {
+            updateCharacter();
+        }
+    });
+    $("#hair-slider").slider({
+        min: 0,
+        max: hairList[0].length,
+        value: 0,
+        animate:"slow",
+        slide: function(event, ui) {
+            updateCharacter();
+        }
+    });
+    $("#haircolor-slider").slider({
+        min: 0,
+        max: 64,
+        value: 0,
+        animate:"slow",
+        slide: function(event, ui) {
+            updateCharacter();
+        }
+    });
+    $("#hairhighlightcolor-slider").slider({
+        min: 0,
+        max: 64,
+        value: 0 ,
+        animate:"slow",
+        slide: function(event, ui) {
+            updateCharacter();
+        }
+    });
+    $("#eyebrowcolor-slider").slider({
+        min: 0,
+        max: 64,
+        value: 0,
+        animate:"slow",
+        slide: function(event, ui) {
+            updateCharacter();
+        }
+    });
+    $("#facialharicolor-slider").slider({
+        min: 0,
+        max: 64,
+        value: 0,
+        animate:"slow",
+        slide: function(event, ui) {
+            updateCharacter();
+        }
+    });
+    $("#eyecolor-slider").slider({
+        min: 0,
+        max: 32,
+        value: 0,
+        animate:"slow",
+        slide: function(event, ui) {
+            updateCharacter();
+        }
+    });
+    $("#blushcolor-slider").slider({
+        min: 0,
+        max: 27,
+        value: 0,
+        animate:"slow",
+        slide: function(event, ui) {
+            updateCharacter();
+        }
+    });
+    $("#lipstickcolor-slider").slider({
+        min: 0,
+        max: 32,
+        value: 0,
+        animate:"slow",
+        slide: function(event, ui) {
+            updateCharacter();
+        }
+    });
+    $("#chesthaircolor-slider").slider({
+        min: 0,
+        max: 64,
+        value: 0,
+        animate:"slow",
+        slide: function(event, ui) {
+            updateCharacter();
+        }
+    });
+
+    for (let i = 0; i < 20; i++) {
+        $(`#${i}-slider`).slider({
+            min: -1,
+            step: 0.1,
+            max: 1,
+            value: 0,
+            animate:"slow",
+            slide: function(event, ui) {
+                updateCharacter();
+            }
+        });
+    }
+
+    for (let i = 0; i < 11; i++) {
+        $(`#a${i}-slider`).slider({
+            min: -1,
+            step: 1,
+            max: appearanceItemNames[i].length - 1,
+            value: -1,
+            animate:"slow",
+            slide: function(event, ui) {
+                updateCharacter();
+            }
+        });
+
+        $(`#a${i}-opacity-slider`).slider({
+            min: 0,
+            step: 0.01,
+            max: 1,
+            value: 1,
+            animate:"slow",
+            slide: function(event, ui) {
+                updateCharacter();
+            }
+        });
+    }
+});
+
+function toggleGene()
+{
+  if ($('#gene-id').hasClass("disabled"))
+  {
+    $('#gene-id').addClass("enabled");
+    $('#gene-id').removeClass("disabled");
+
+    $('#gene-id').slideDown(500);
+    setTimeout(() =>
+    {
+      $('#gene-id').css("display", "flex");
+    }, 500);
+  }
+  else
+  {
+    $('#gene-id').addClass("disabled");
+    $('#gene-id').removeClass("enabled");
+
+    $('#gene-id').slideUp(500);
+  }
+}
+function toggleNase()
+{
+  if ($('#nase-id').hasClass("disabled"))
+  {
+    $('#nase-id').addClass("enabled");
+    $('#nase-id').removeClass("disabled");
+
+    $('#nase-id').slideDown(500);
+    setTimeout(() =>
+    {
+      $('#nase-id').css("display", "flex");
+    }, 500);
+  }
+  else
+  {
+    $('#nase-id').addClass("disabled");
+    $('#nase-id').removeClass("enabled");
+
+    $('#nase-id').slideUp(500);
+  }
+}
+function toggleAugen()
+{
+  if ($('#augen-id').hasClass("disabled"))
+  {
+    $('#augen-id').addClass("enabled");
+    $('#augen-id').removeClass("disabled");
+
+    $('#augen-id').slideDown(500);
+    setTimeout(() =>
+    {
+      $('#augen-id').css("display", "flex");
+    }, 500);
+  }
+  else
+  {
+    $('#augen-id').addClass("disabled");
+    $('#augen-id').removeClass("enabled");
+
+    $('#augen-id').slideUp(500);
+  }
+}
+function toggleGesichtzuege()
+{
+  if ($('#gesichtzüge-id').hasClass("disabled"))
+  {
+    $('#gesichtzüge-id').addClass("enabled");
+    $('#gesichtzüge-id').removeClass("disabled");
+
+    $('#gesichtzüge-id').slideDown(500);
+    setTimeout(() =>
+    {
+      $('#gesichtzüge-id').css("display", "flex");
+    }, 500);
+  }
+  else
+  {
+    $('#gesichtzüge-id').addClass("disabled");
+    $('#gesichtzüge-id').removeClass("enabled");
+
+    $('#gesichtzüge-id').slideUp(500);
+  }
+}
+function toggleKosmetik()
+{
+  if ($('#kosmetik-id').hasClass("disabled"))
+  {
+    $('#kosmetik-id').addClass("enabled");
+    $('#kosmetik-id').removeClass("disabled");
+
+    $('#kosmetik-id').slideDown(500);
+    setTimeout(() =>
+    {
+      $('#kosmetik-id').css("display", "flex");
+    }, 500);
+  }
+  else
+  {
+    $('#kosmetik-id').addClass("disabled");
+    $('#kosmetik-id').removeClass("enabled");
+
+    $('#kosmetik-id').slideUp(500);
+  }
+}
+</script>
+</html>

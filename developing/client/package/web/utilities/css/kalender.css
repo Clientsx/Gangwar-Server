@@ -1,0 +1,97 @@
+@font-face {
+    font-family: 'PM';
+    src: url('../fonts/Poppins-Medium.ttf');
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-drag: none;
+    font-family: 'PM';
+    list-style: none;
+}
+
+body {
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    align-content: center;
+    background-image: url('../img/misc/christmas.png');
+}
+
+.container{
+    margin-top: 2vh;
+    width: 50%;
+    height: 70vh;
+    background-color: transparent;
+    border-radius: 0.5vh;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 2vh;
+}
+
+.container .container-tür{
+    position: relative;
+    border-radius: 0.5vh;
+    display: flex;
+    width: 12vh;
+    height: 12vh;
+    background-color: transparent;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    border: 0.22vh white dashed;
+    color: white;
+    font-size: 2vh;
+}
+
+.container .container-tür img{
+    position: absolute;
+    height: 5vh;
+    left: -1.5vh;
+    bottom: -1.5vh;
+}
+
+#notifyText{
+    color: white;
+    font-size: 1.8vh;
+    position: absolute;
+    right: 10%;
+    bottom: 10%;
+}
+
+.geschenk{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+
+.container .container-tür .geschenk img{
+    position: absolute;
+    height: 7vh;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -70%);
+}
+
+.container .container-tür .geschenk label{
+    font-size: 1.5vh;
+    margin-top: 8.5vh;
+    text-align: center;
+}

@@ -1,0 +1,13 @@
+import './game/client'
+import './game/shops'
+import './game/camera'
+import './game/killcam'
+import './game/object'
+import './game/sync'
+import './charcreator/charcreator'
+
+import './web/gui/overlay'
+import './web/gui/teamselection'
+import './web/gui/sound'
+import './web/gui/garage'
+import './web/login/login'

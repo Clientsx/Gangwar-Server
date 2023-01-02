@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
+    <link rel="stylesheet" href="../utilities/css/garage.css">
+    <link rel="stylesheet" href="../utilities/css/scrollbar.css">
+    <script src="../utilities/js/jquery.js"></script>
+    <title>Garage</title>
+</head>
+<body>
+    <div class="container-1">
+        <div class="line"></div>
+
+        <img class="vehicleLogo" src="../utilities/img/misc/garage/car.png" alt="" />
+        <div class="garageNameContainer">
+        <label id="garagename">Front Yard Ballas - Garage</label>
+        </div>
+        <div class="tabContainer">
+            <div id="tab-0" class="tab active" onclick="selectTab(0)">
+                <div class="line"></div>
+                <label>Öffentliche Fahrzeuge</label>
+            </div>
+            <div id="tab-1" class="tab default" onclick="selectTab(1)">
+                <div class="line"></div>
+                <label>Private Fahrzeuge</label>
+            </div>
+            <div id="tab-2" class="tab default" onclick="selectTab(2)">
+                <div class="line"></div>
+                <label>Fahrzeugshop</label>
+            </div>
+        </div>
+    </div>
+    <div class="container-2">
+        <div class="vehicleContainer">
+            <div id="vc1">
+
+            </div>
+            <div id="vc2">
+
+            </div>
+            <div id="vc3">
+
+            </div>
+        </div>
+        <div class="buttonContainer">
+            <button class="pobb" style="background-color: #2268d3;" onclick="parkOutOrBuyVehicle()">Ausparken</button>
+            <button style="background-color: #d32222;" onclick="closeGarage()">Schliessen</button>
+        </div>
+    </div>
+</body>
+<script>
+let currentTab = 0;
+let selectedPrivateCar = null;
+let selectedDefautlCar = null;
+let selectedShopCar = null;
+
+function updateGarageName(name)
+{
+    $("#garagename").text(`${name} - Garage`)
+}
+
+function closeGarage()
+{
+    mp.trigger("gui:garage:destroy");
+}
+
+function selectTab(id)
+{
+    id = parseInt(id);
+
+    $("#tab-"+currentTab).removeClass("active");
+    $("#tab-"+currentTab).addClass("default");
+    $("#tab-"+id).removeClass("default");
+    $("#tab-"+id).addClass("active");
+
+    currentTab = id;
+    if (id == 0)
+    {
+        $("#vc1").css("display", "block");
+        $("#vc2").css("display", "none");
+        $("#vc3").css("display", "none");
+        $(".pobb").html("Ausparken");
+    } 
+    else if (id == 1)
+    {
+        $("#vc1").css("display", "none");
+        $("#vc2").css("display", "block");
+        $("#vc3").css("display", "none");
+        $(".pobb").html("Ausparken");
+    }
+    else if (id == 2)
+    {
+        $("#vc1").css("display", "none");
+        $("#vc2").css("display", "none");
+        $("#vc3").css("display", "block");
+        $(".pobb").html("Kaufen");
+    }
+}
+
+function parkOutOrBuyVehicle()
+{
+    if (currentTab == 0)
+    {
+        if (selectedDefautlCar == null) return;
+        mp.trigger("gui:garage:packoutVehicle", selectedDefautlCar, true);
+    } 
+    else if (currentTab == 1)
+    {
+        if (selectedPrivateCar == null) return;
+        mp.trigger("gui:garage:packoutVehicle", selectedPrivateCar, false);
+    }
+    else if (currentTab == 2)
+    {
+
+    }
+}
+
+function pushCars(carJson)
+{
+    carJson = JSON.parse(carJson);
+
+    for (let i = 0; i < carJson.length; i++) {
+        var $html = $(`
+            <div class="carcontainer-default" id="defaultcarid-${i}" onclick="selectDefautlCar(${i})">
+                <i class="fa-solid fa-car"></i>
+                <label class="carname">${carJson[i].vehicleDisplayName}</label>
+                <label class="carlevel">Level: ${carJson[i].minLevel}</label>
+            </div>
+        `);
+        $("#vc1").append($html);
+    }
+}
+
+function pushPrivateCars(carJson)
+{
+    carJson = JSON.parse(carJson);
+
+    for (let i = 0; i < carJson.length; i++) {
+        var $html = $(`
+            <div class="carcontainer-default" id="privatecarid-${i}" onclick="selectPrivateCar(${i})">
+                <i class="fa-solid fa-car"></i>
+                <label class="carname">${carJson[i].vehicleDisplayName}</label>
+            </div>
+        `);
+        $("#vc2").append($html);
+    }
+}
+
+function pushShopCars(carJson)
+{
+    carJson = JSON.parse(carJson);
+    carJson.forEach(carElement => {
+        var $html = $(`
+            <div class="carcontainer-default" id="shopcarid-${carElement.length}" onclick="selectShopCar(${carElement.length})">
+                <i class="fa-solid fa-car"></i>
+                <label class="carname">${carElement.vehicleName}</label>
+                <label class="carlevel">Preis: ${carElement.price}</label>
+            </div>
+        `);
+    });
+    $("#vc3").append($html);
+}
+
+function selectShopCar(id)
+{
+    id = parseInt(id);
+    if (selectedShopCar == null)
+    {
+        selectedShopCar = id;
+        $("#shopcarid-"+id).addClass("active");
+    }
+    else
+    {
+        $("#shopcarid-"+selectedShopCar).removeClass("active");
+        $("#shopcarid-"+id).addClass("active");
+        selectedShopCar = id;
+    }
+}
+
+function selectPrivateCar(id)
+{
+    id = parseInt(id);
+    if (selectedPrivateCar == null)
+    {
+        selectedPrivateCar = id;
+        $("#privatecarid-"+id).addClass("active");
+    }
+    else
+    {
+        $("#privatecarid-"+selectedPrivateCar).removeClass("active");
+        $("#privatecarid-"+id).addClass("active");
+        selectedPrivateCar = id;
+    }
+}
+
+function selectDefautlCar(id)
+{
+    id = parseInt(id);
+    if (selectedDefautlCar == null)
+    {
+        selectedDefautlCar = id;
+        $("#defaultcarid-"+id).addClass("active");
+    }
+    else
+    {
+        $("#defaultcarid-"+selectedDefautlCar).removeClass("active");
+        $("#defaultcarid-"+id).addClass("active");
+        selectedDefautlCar = id;
+    }
+}
+/*
+pushCars('[{"vehicleDisplayName":"Sentinel","vehicleSpawnName":"Sentinel","minLevel":0},{"vehicleDisplayName":"Cogcabrio","vehicleSpawnName":"Cogcabrio","minLevel":0},{"vehicleDisplayName":"Oracle","vehicleSpawnName":"Oracle","minLevel":1},{"vehicleDisplayName":"Felon","vehicleSpawnName":"Felon","minLevel":2},{"vehicleDisplayName":"Zion","vehicleSpawnName":"Zion","minLevel":3},{"vehicleDisplayName":"Exemplar","vehicleSpawnName":"Exemplar","minLevel":4},{"vehicleDisplayName":"Schafter4","vehicleSpawnName":"Schafter4","minLevel":5},{"vehicleDisplayName":"F620","vehicleSpawnName":"F620","minLevel":5},{"vehicleDisplayName":"Windsor2","vehicleSpawnName":"Windsor2","minLevel":10},{"vehicleDisplayName":"Dubsta2","vehicleSpawnName":"Dubsta2","minLevel":15},{"vehicleDisplayName":"Gauntlet","vehicleSpawnName":"Gauntlet","minLevel":15},{"vehicleDisplayName":"Faction2","vehicleSpawnName":"Faction2","minLevel":15},{"vehicleDisplayName":"Nero2","vehicleSpawnName":"Nero2","minLevel":15},{"vehicleDisplayName":"Buccaneer","vehicleSpawnName":"Buccaneer","minLevel":15},{"vehicleDisplayName":"Coquette3","vehicleSpawnName":"Coquette3","minLevel":15},{"vehicleDisplayName":"Virgo","vehicleSpawnName":"Virgo","minLevel":20},{"vehicleDisplayName":"Tulip","vehicleSpawnName":"Tulip","minLevel":20},{"vehicleDisplayName":"Voodoo","vehicleSpawnName":"Voodoo","minLevel":20},{"vehicleDisplayName":"Thrax","vehicleSpawnName":"Thrax","minLevel":25},{"vehicleDisplayName":"Vagrant","vehicleSpawnName":"Vagrant","minLevel":30},{"vehicleDisplayName":"Serrano","vehicleSpawnName":"Serrano","minLevel":30},{"vehicleDisplayName":"Comet5","vehicleSpawnName":"Comet5","minLevel":35},{"vehicleDisplayName":"Comet2","vehicleSpawnName":"Comet2","minLevel":35},{"vehicleDisplayName":"Havok","vehicleSpawnName":"Havok","minLevel":35},{"vehicleDisplayName":"Sultan3","vehicleSpawnName":"Sultan3","minLevel":35},{"vehicleDisplayName":"Revolter","vehicleSpawnName":"Revolter","minLevel":40},{"vehicleDisplayName":"Coquette4","vehicleSpawnName":"Coquette4","minLevel":40},{"vehicleDisplayName":"Buzzard2","vehicleSpawnName":"Buzzard2","minLevel":40},{"vehicleDisplayName":"Tailgater2","vehicleSpawnName":"Tailgater2","minLevel":45},{"vehicleDisplayName":"Elegy","vehicleSpawnName":"Elegy","minLevel":50},{"vehicleDisplayName":"T20","vehicleSpawnName":"T20","minLevel":55},{"vehicleDisplayName":"Zr350","vehicleSpawnName":"Zr350","minLevel":60},{"vehicleDisplayName":"Zentorno","vehicleSpawnName":"Zentorno","minLevel":65},{"vehicleDisplayName":"Mercedes-Benz S 63 AMG","vehicleSpawnName":"20s63c","minLevel":80},{"vehicleDisplayName":"Volatus","vehicleSpawnName":"Volatus","minLevel":100}]')
+*/
+</script>
+</html>

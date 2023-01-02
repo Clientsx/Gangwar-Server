@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.0.2/sha.js"></script>
+    <link rel="stylesheet" href="../utilities/css/kalender.css">
+    <script src="../utilities/js/jquery.js"></script>
+    <title>Kalender</title>
+</head>
+<body>
+    <label id="notifyText">ESC zum Schliessen</label>
+    <div class="container">
+        <div class="container-tür isVIP" id="16" onclick="openKalenderTag(16)">16 <img src="../utilities/img/misc/vip.png" alt="" /></div>
+        <div class="container-tür" id="3" onclick="openKalenderTag(3)">3</div>
+        <div class="container-tür" id="12" onclick="openKalenderTag(12)">12</div>
+        <div class="container-tür isVIP" id="5" onclick="openKalenderTag(5)">5 <img src="../utilities/img/misc/vip.png" alt="" /></div>
+        <div class="container-tür" id="20" onclick="openKalenderTag(20)">20</div>
+        <div class="container-tür" id="7" onclick="openKalenderTag(7)">7</div>
+        <div class="container-tür isVIP" id="13" onclick="openKalenderTag(13)">13 <img src="../utilities/img/misc/vip.png" alt="" /></div>
+        <div class="container-tür" id="8" onclick="openKalenderTag(8)">8</div>
+        <div class="container-tür" id="21" onclick="openKalenderTag(21)">21</div>
+        <div class="container-tür isVIP" id="9" onclick="openKalenderTag(9)">9 <img src="../utilities/img/misc/vip.png" alt="" /></div>
+        <div class="container-tür" id="10" onclick="openKalenderTag(10)">10</div>
+        <div class="container-tür" id="14" onclick="openKalenderTag(14)">14</div>
+        <div class="container-tür" id="24" onclick="openKalenderTag(24)">24</div>
+        <div class="container-tür" id="15"  onclick="openKalenderTag(15)">15</div>
+        <div class="container-tür" id="1"  onclick="openKalenderTag(1)">1</div>
+        <div class="container-tür" id="17"  onclick="openKalenderTag(17)">17</div>
+        <div class="container-tür" id="4"  onclick="openKalenderTag(4)">4</div>
+        <div class="container-tür isVIP" id="18"  onclick="openKalenderTag(18)">18 <img src="../utilities/img/misc/vip.png" alt="" /></div>
+        <div class="container-tür" id="6"  onclick="openKalenderTag(6)">6</div>
+        <div class="container-tür" id="19"  onclick="openKalenderTag(19)">19</div>
+        <div class="container-tür isVIP" id="22"  onclick="openKalenderTag(22)">22 <img src="../utilities/img/misc/vip.png" alt="" /></div>
+        <div class="container-tür isVIP" id="2"  onclick="openKalenderTag(2)">2 <img src="../utilities/img/misc/vip.png" alt="" /></div>
+        <div class="container-tür" id="23" onclick="openKalenderTag(23)">23</div>
+        <div class="container-tür isVIP" id="11"  onclick="openKalenderTag(11)">11 <img src="../utilities/img/misc/vip.png" alt="" /></div>
+    </div>
+</body>
+<script>
+let canOpenVIP = false;
+let notifyTimer;
+let opened = false;
+
+function showNotify(text)
+{
+    clearTimeout(notifyTimer);
+    $("#notifyText").text(text);
+    notifyTimer = setTimeout(() => {
+        $("#notifyText").text("ESC zum Schliessen");
+    }, 3000);
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+function openRandomDoor(tag)
+{
+    let val = getRandomInt(0, 10);
+    switch (val) {
+        case 0:
+            openDoor(tag, "geld", "15.000$");
+            mp.trigger("gui:kalender:gift", "geld", 15000);
+        break;
+
+        case 1:
+            openDoor(tag, "geld", "5.000$");
+            mp.trigger("gui:kalender:gift", "geld", 5000);
+        break;
+
+        case 2:
+            openDoor(tag, "geld", "10.000$");
+            mp.trigger("gui:kalender:gift", "geld", 10000);
+        break;
+
+        case 3:
+            openDoor(tag, "vip", "1 Tag VIP");
+            mp.trigger("gui:kalender:gift", "vip", 1);
+        break;
+
+        case 4:
+            openDoor(tag, "coin", "5x Coins");
+            mp.trigger("gui:kalender:gift", "coin", 5);
+        break;
+
+        case 5:
+            openDoor(tag, "level", "2x XP-Boost - 24h");
+            mp.trigger("gui:kalender:gift", "level", 2);
+        break;
+
+        case 6:
+            openDoor(tag, "level", "2x XP-Boost - 24h");
+            mp.trigger("gui:kalender:gift", "level", 2);
+        break;
+
+        case 7:
+            openDoor(tag, "coin", "10x Coins");
+            mp.trigger("gui:kalender:gift", "coin", 10);
+        break;
+
+        case 8:
+            openDoor(tag, "geld", "10.000$");
+            mp.trigger("gui:kalender:gift", "geld", 10000);
+        break;
+
+        case 9:
+            openDoor(tag, "level", "3x XP-Boost - 24h");
+            mp.trigger("gui:kalender:gift", "level", 3);
+        break;
+
+        case 10:
+            openDoor(tag, "coin", "5x Coins");
+            mp.trigger("gui:kalender:gift", "coin", 5);
+        break;
+    
+        default:
+            openDoor(tag, "geld", "5.000$");
+            mp.trigger("gui:kalender:gift", "geld", 5);
+        break;
+    }
+}
+
+function setVIPState(value)
+{
+    canOpenVIP = value;
+}
+
+function openKalenderTag(tag)
+{
+    if (opened) return;
+    const curDate = new Date();
+    var curDay = curDate.getDate();
+    var curMonth = curDate.getMonth() + 1;
+
+    if (curMonth == 11)
+    {
+        if (tag == curDay)
+        {
+            if ($(`#${tag}`).hasClass("isVIP"))
+            {
+                if (canOpenVIP)
+                {
+                    switch (tag) {
+                        case 2:
+                            openDoor(2, "vip", "2 Tage VIP");
+                            mp.trigger("gui:kalender:gift", "vip", 2);
+                        break;
+                        case 5:
+                            openDoor(5, "coin", "15x Coins");
+                            mp.trigger("gui:kalender:gift", "coin", 15);
+                        break;
+                        case 9:
+                            openDoor(9, "geld", "20.000$");
+                            mp.trigger("gui:kalender:gift", "geld", 20000);
+                        break;
+                        case 11:
+                            openDoor(11, "level", "3x XP-Boost - 24h");
+                            mp.trigger("gui:kalender:gift", "level", 3);
+                        break;
+                        case 13:
+                            openDoor(13, "geld", "25.000$");
+                            mp.trigger("gui:kalender:gift", "geld", 25000);
+                        break;
+                        case 16:
+                            openDoor(16, "accessories", "Exclusives Accessorie");
+                            mp.trigger("gui:kalender:giftacces", "accessories", "kette");
+                        break;
+                        case 18:
+                            openDoor(18, "fahrzeug", "Du hast ein BMW I8 erhalten");
+                            mp.trigger("gui:kalender:giftcar", "fahrzeug", "bmwi8");
+                        break;
+                        case 22:
+                            openDoor(18, "coin", "30x Coins");
+                            mp.trigger("gui:kalender:gift", "coin", 30);
+                        break;
+                        default:
+                        break;
+                    }
+                }
+                else
+                {
+                    showNotify("Du hast kein VIP!")
+                }
+            }
+            else
+            {
+                if (tag == 23)
+                {
+                    openDoor(18, "fahrzeug", "Du hast ein Emerus erhalten");
+                } 
+                else if (tag == 24)
+                {
+                    openDoor(18, "geschenkbox", "Du hast ein Geschenk erhalten!");
+                }
+                else
+                {
+                    openRandomDoor(tag);
+                }
+            }
+        }
+        else
+        {
+            showNotify(`Heute ist nicht der ${tag}!`)
+        }
+    }
+    else
+    {
+        showNotify(`Heute ist nicht der Dezember!`)
+    }
+}
+
+function openDoor(day, price, text) {
+    $(`#${day}`).html("");
+    $(`#${day}`).html(`<div class='geschenk'><img src='../utilities/img/misc/kalender/${price}.png' alt='' /><label>${text}</label></div>`);
+    opened = true;
+}
+</script>
+</html>

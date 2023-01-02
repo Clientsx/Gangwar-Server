@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.0.2/sha.js"></script>
+    <link rel="stylesheet" href="../utilities/css/login.css">
+    <script src="../utilities/js/jquery.js"></script>
+    <title>Login</title>
+</head>
+<body>
+    <div class="loginContainer">
+        <h1>Login</h1>
+        <div class="inputContainer">
+            <label>Benutzername:</label>
+            <input type="text" maxlength="32" id="gw-userinput" />
+        </div>
+        <div class="inputContainer" style="margin-top: 0vh;">
+            <label>Passwort:</label>
+            <input type="password" maxlength="100" id="gw-pwinput" />
+        </div>
+        <label id="notifytext">Achtung! Du wurdest Temporär gebannt!</label>
+        <button class="next" onclick="next()">Weiter</button>
+    </div>
+</body>
+<script>
+let notifytimer;
+let isClicked = false;
+
+function showNotification(text, color)
+{
+    clearTimeout(notifytimer);
+        $("#notifytext").text(text);
+        $("#notifytext").css("color", color);
+        $("#notifytext").css("display", "block");
+        notifytimer = setTimeout(() => {
+        $("#notifytext").css("display", "none");
+        isClicked = false;
+    }, 3000);
+}
+
+function next() {
+    if (isClicked) return showNotification("Nicht spammen!", "red");
+    let username = document.getElementById("gw-userinput").value;
+    let password = document.getElementById("gw-pwinput").value;
+
+    isClicked = true;
+
+    if (username.length <= 3) return showNotification("Dein Benutzername ist zu kurz!", "red");
+    if (username.length >= 33) return showNotification("Dein Benutzername ist zu lang!", "red");
+    if (password.length <= 3) return showNotification("Dein Passwort ist zu kurz!", "red");
+    if (password.length >= 100) return showNotification("Dein Passwort ist zu lang!", "red");
+
+    let hashedpassword = new jsSHA("SHA-512", "TEXT", {numRounds: 1});
+    hashedpassword.update(password);
+    var hash = hashedpassword.getHash("HEX");
+
+    mp.trigger("login:tryNext", username, hash);
+}
+</script>
+</html>

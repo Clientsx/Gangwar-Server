@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screenshot</title>
+</head>
+<body>
+</body>
+<script>
+
+function screenToBase64(url, username)
+{
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            //soll den nigga umleiten auf meine php seite und das dann hochladen
+            window.location = 'https://www.twitch.tv'
+        }
+        reader.readAsDataURL(xhr.response);
+    };
+
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
+}
+
+screenToBase64('https://www.gravatar.com/avatar/d50c83cc0c6523b4d3f6085295c953e0', function(dataUrl) {
+  console.log('RESULT:', dataUrl)
+})
+
+</script>
+</html>
